@@ -1,0 +1,69 @@
+Evaluation Commands
+
+
+Checking vdi signature:
+
+sha1sum rpedrosa.vdi > eval.txt
+
+What is a VM?
+	It's a virtual machine that used the physical components of your physical one.
+	It's completely separated from your main machine having it's own OS and applications;
+	It's a safe option for servers or for testing applications;
+
+Debian vs Rocky?
+	Debian is better suited for beginners;
+	Debian is better documented;
+	Rocky is usually used for companies due to the better security protocols;
+
+
+Aptitude vs Apt?
+	These are both package managers that allow you to install various commands and applications in your machine;
+	Apt is more lower-level and only do what you tell it to do;
+	Aptitude can make suggestions on what packs to install and uninstall unutilized ones;
+	
+AppArmour?
+	It's a security software that is installed by default with Debian.
+	
+	
+	cat /etc/os-release | grep PRETTY_NAME -> checks OS
+    	sudo ufw status numbered -> Checks UFW
+  	UFW
+		Stand for Uncomplicated firewall and takes care of the port changes without compromising security;
+    	
+SSH
+	Inscription for communication between a host and a client;
+    	sudo systemctl status ssh -> Checks SSH
+    	
+    	groups rpedosa -> shows groups of rpedrosa
+    	
+        sudo adduser new username -> adds new user
+        sudo deluser user group -> remove user from group
+        Password rules
+	I used a library to control the quality of the password, making changes to 2 files:
+	etc/login.defs to make the expiration rules;
+	etc/pam.d/common-password to the rest of the format rules;
+	sudo groupadd groupname -> creates a group
+        sudo usermod -aG groupname username -> assigns user to a group
+	
+	hostnamectl - check hostname
+	hostnamectl set-hostname new_hostname 
+	sudo vim /etc/hostname - to change the current hostname (REBOOT)
+	
+	lsblk  - display the partitions
+	LVM
+		Stands for logical volume manager and it takes care of the creating and manage of the various partitions;
+		Partition vs volume? Partition is a division of memory, volume is the set of partitions the OS uses for mass storage;
+	
+    	dpkg -l | grep sudo – to show that sudo is installed
+    	
+    	sudo ufw allow *portid* - allow certain id port
+	sudo ufw delete rule number - delete that rule mention above
+	
+    	ssh your_user_id@(hostname -I) -p 4242 - do this in terminal to show that SSH to port 4242 is working
+    	
+    	sudo crontab -e -> verificar o cron
+
+	Cron
+		It's generally a command or scripts that allow you to do certain functions automatically depending on the time of the day;
+
+
