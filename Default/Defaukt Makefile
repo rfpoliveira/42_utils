@@ -2,13 +2,16 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = 
+SRCS = $(addprefix $(SRCS_PATH)/, )
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
 NAME = 
 
 BUILD_PATH = .build
+SRCS_PATH = ./srcs
+LIBFT_ARC = ../libft/libft.a
+LIBFT_PATH = libft
 
 #==============================================================================#
 #                                   Alias                                      #
@@ -17,22 +20,35 @@ BUILD_PATH = .build
 RM = rm -rf
 AR = ar rcs
 CFLAGS = -Wall -Werror -Wextra
+SILENT_MAKE = make -s extra
 
 #==============================================================================#
 #                                    Rules                                     #
 #==============================================================================#
 
-all: $(NAME)
+all: deps $(LIBFT_ARC) $(NAME)
 
 $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
 
 $(NAME): $(BUILD_PATH) $(OBJS)
-	@cc $(CFLAGS) $(OBJS) -o $(NAME)
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME)
 	@echo "$(GRN)[ successfully compiled]$(D)"
 	
-$(BUILD_PATH)/%.o: %.c
+$(BUILD_PATH)/%.o: $(SRCS_PATH)/%.c
 	@cc $(CFLAGS) -o $@ -c $<
+
+$(LIBFT_ARC): $(LIBFT_PATH)
+	@$(SILENT_MAKE) -C $(LIBFT_PATH)
+
+deps:
+	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
+		else echo "$(GRN)[Libft folder found]$(D)"; fi
+
+get_libft:
+	@echo "[$(CYA)Downloading Libft$(D)]"
+	git clone git@github.com:rfpoliveira/42_Libft.git $(LIBFT_PATH)
+	@echo "$(CYA)[Libft successfully downloaded]$(D)"
 
 clean: 
 	@$(RM) $(BUILD_PATH)
@@ -42,7 +58,9 @@ fclean: clean
 	@$(RM) $(NAME)
 	@echo "$(BCYA)[fclean] Archive removed$(D)"
 
-re: fclean extra
+re: fclean all
+
+again: clean all
 
 #==============================================================================#
 #                                  UTILS                                       #
