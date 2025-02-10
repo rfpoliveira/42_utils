@@ -10,7 +10,7 @@ NAME =
 
 BUILD_PATH = .build
 SRCS_PATH = ./srcs
-LIBFT_ARC = ../libft/libft.a
+LIBFT_ARC = ./libft/libft.a
 LIBFT_PATH = libft
 
 #==============================================================================#
